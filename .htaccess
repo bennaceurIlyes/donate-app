@@ -1,0 +1,19 @@
+RewriteEngine On
+RewriteBase /donate/
+
+# Handle CORS
+Header set Access-Control-Allow-Origin "*"
+Header set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+Header set Access-Control-Allow-Headers "Content-Type"
+
+# If the request is not for a file or directory
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Route all API requests to the appropriate PHP file
+RewriteRule ^api/donations/(.*)$ api/donations/$1.php [L,QSA]
+RewriteRule ^api/families/(.*)$ api/families/$1.php [L,QSA]
+RewriteRule ^api/auth/(.*)$ api/auth/$1.php [L,QSA]
+
+# Default index
+DirectoryIndex index.php 
